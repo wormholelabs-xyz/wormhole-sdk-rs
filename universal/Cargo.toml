@@ -6,7 +6,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "0.0.0"
+version = "0.3.0"
 edition = "2021"
 authors = ["Wormhole Labs"]
 license = "Apache-2.0"
