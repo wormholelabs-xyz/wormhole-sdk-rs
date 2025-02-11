@@ -22,5 +22,5 @@ alloy-primitives = { workspace = true, optional = true }
 [dev-dependencies]
 hex-literal.workspace = true
 
-[metadata.docs.rs]
+[package.metadata.docs.rs]
 workspace = true
