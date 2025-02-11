@@ -1,4 +1,4 @@
-name: CI
+name: universal
 
 on:
     push:
@@ -10,22 +10,17 @@ env:
 
 jobs:
     test:
-        name: test ${{ matrix.rust }} ${{ matrix.flags }} ${{ matrix.extra-flags }}
+        name: test ${{ matrix.rust }}
         runs-on: ubuntu-latest
         timeout-minutes: 30
         strategy:
             fail-fast: false
             matrix:
-                rust: ["stable", "beta", "nightly", "1.75"] # MSRV
-                flags: [
-                    "--features mainnet",
-                    "--features testnet",
-                    "--features localnet"
-                ]
-                extra-flags: [
-                    "--features ruint",
-                    "--features anchor",
-                    "--features ruint,anchor"
+                rust: [
+                    "stable",
+                    "beta",
+                    "nightly",
+                    "1.75" # MSRV
                 ]
         steps:
             - uses: actions/checkout@v3
@@ -34,24 +29,20 @@ jobs:
                   toolchain: ${{ matrix.rust }}
             - uses: Swatinem/rust-cache@v2
             - name: test
-              run: cd universal && cargo test --workspace ${{ matrix.flags }} ${{ matrix.extra-flags }}
+              run: cargo test --workspace --all-features --all-targets
+              working-directory: universal
 
     clippy:
-        name: clippy ${{ matrix.flags }}
+        name: clippy
         runs-on: ubuntu-latest
         timeout-minutes: 30
         strategy:
             fail-fast: false
-            matrix:
-                flags: [
-                    "--features mainnet",
-                    "--features testnet",
-                    "--features localnet"
-                ]
         steps:
             - uses: actions/checkout@v3
             - uses: dtolnay/rust-toolchain@clippy
-            - run: cd universal && cargo clippy --workspace --all-targets ${{ matrix.flags }}
+            - run: cargo clippy --workspace --all-features --all-targets
+              working-directory: universal
               env:
                   RUSTFLAGS: -Dwarnings
 
@@ -64,7 +55,8 @@ jobs:
             - uses: dtolnay/rust-toolchain@nightly
               with:
                   components: rust-docs
-            - run: cd universal && cargo doc --workspace --no-deps --document-private-items
+            - run: cargo doc --workspace --no-deps --document-private-items
+              working-directory: universal
               env:
                   RUSTDOCFLAGS: "--cfg docsrs -D warnings"
 
@@ -77,4 +69,5 @@ jobs:
             - uses: dtolnay/rust-toolchain@nightly
               with:
                   components: rustfmt
-            - run: cd universal && cargo fmt --all --check
+            - run: cargo fmt --all --check
+              working-directory: universal
