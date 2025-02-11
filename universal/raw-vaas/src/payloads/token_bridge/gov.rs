@@ -10,7 +10,7 @@ pub struct TokenBridgeGovPayload<'a> {
     decree: TokenBridgeDecree<'a>,
 }
 
-impl<'a> AsRef<[u8]> for TokenBridgeGovPayload<'a> {
+impl AsRef<[u8]> for TokenBridgeGovPayload<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -143,7 +143,7 @@ impl<'a> TokenBridgeDecree<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct RegisterChain<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for RegisterChain<'a> {
+impl AsRef<[u8]> for RegisterChain<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -183,7 +183,7 @@ impl<'a> RegisterChain<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct ContractUpgrade<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for ContractUpgrade<'a> {
+impl AsRef<[u8]> for ContractUpgrade<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -219,7 +219,7 @@ impl<'a> ContractUpgrade<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct RecoverChainId<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for RecoverChainId<'a> {
+impl AsRef<[u8]> for RecoverChainId<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }

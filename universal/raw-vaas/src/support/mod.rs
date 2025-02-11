@@ -1,4 +1,4 @@
-//! Provides support for ruint.
+//! Provides support for [ruint].
 
 use ruint::Uint;
 

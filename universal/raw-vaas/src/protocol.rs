@@ -5,7 +5,7 @@ pub struct Vaa<'a> {
     body: Body<'a>,
 }
 
-impl<'a> AsRef<[u8]> for Vaa<'a> {
+impl AsRef<[u8]> for Vaa<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -55,7 +55,7 @@ impl<'a> Vaa<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Header<'a>(pub(crate) &'a [u8]);
 
-impl<'a> AsRef<[u8]> for Header<'a> {
+impl AsRef<[u8]> for Header<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -89,7 +89,7 @@ impl<'a> Header<'a> {
     pub fn signatures(&self) -> impl Iterator<Item = GuardianSetSig<'_>> {
         self.raw_signatures()
             .chunks(66)
-            .map(GuardianSetSig::unchecked_from)
+            .map(GuardianSetSig::parse_unchecked)
     }
 
     pub fn parse(span: &'a [u8]) -> Result<Self, &'static str> {
@@ -111,7 +111,7 @@ impl<'a> Header<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Body<'a>(pub(crate) &'a [u8]);
 
-impl<'a> AsRef<[u8]> for Body<'a> {
+impl AsRef<[u8]> for Body<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -165,26 +165,12 @@ impl<'a> Body<'a> {
 
         Ok(Self(span))
     }
-
-    // available when `off-chain` feature is enabled
-    #[inline]
-    #[cfg(feature = "off-chain")]
-    pub fn digest(&self) -> [u8; 32] {
-        crate::utils::keccak256(self)
-    }
-
-    // available when `off-chain` feature is enabled
-    #[inline]
-    #[cfg(feature = "off-chain")]
-    pub fn double_digest(&self) -> [u8; 32] {
-        crate::utils::keccak256(self.digest())
-    }
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Payload<'a>(pub(crate) &'a [u8]);
 
-impl<'a> AsRef<[u8]> for Payload<'a> {
+impl AsRef<[u8]> for Payload<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -219,7 +205,7 @@ impl<'a> From<Payload<'a>> for &'a [u8] {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct GuardianSetSig<'a>(pub(crate) &'a [u8]);
 
-impl<'a> AsRef<[u8]> for GuardianSetSig<'a> {
+impl AsRef<[u8]> for GuardianSetSig<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -262,7 +248,7 @@ impl<'a> GuardianSetSig<'a> {
         Ok(Self(span))
     }
 
-    fn unchecked_from(span: &'a [u8]) -> GuardianSetSig<'a> {
+    fn parse_unchecked(span: &'a [u8]) -> GuardianSetSig<'a> {
         Self(span)
     }
 }

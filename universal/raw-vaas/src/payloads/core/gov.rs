@@ -10,7 +10,7 @@ pub struct CoreBridgeGovPayload<'a> {
     decree: CoreBridgeDecree<'a>,
 }
 
-impl<'a> AsRef<[u8]> for CoreBridgeGovPayload<'a> {
+impl AsRef<[u8]> for CoreBridgeGovPayload<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -58,7 +58,7 @@ pub enum CoreBridgeDecree<'a> {
     RecoverChainId(RecoverChainId<'a>),
 }
 
-impl<'a> AsRef<[u8]> for CoreBridgeDecree<'a> {
+impl AsRef<[u8]> for CoreBridgeDecree<'_> {
     fn as_ref(&self) -> &[u8] {
         match self {
             Self::ContractUpgrade(inner) => inner.as_ref(),
@@ -177,7 +177,7 @@ impl<'a> CoreBridgeDecree<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct ContractUpgrade<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for ContractUpgrade<'a> {
+impl AsRef<[u8]> for ContractUpgrade<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -213,7 +213,7 @@ impl<'a> ContractUpgrade<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct GuardianSetUpdate<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for GuardianSetUpdate<'a> {
+impl AsRef<[u8]> for GuardianSetUpdate<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -272,7 +272,7 @@ impl<'a> GuardianSetUpdate<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct SetMessageFee<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for SetMessageFee<'a> {
+impl AsRef<[u8]> for SetMessageFee<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -308,7 +308,7 @@ impl<'a> SetMessageFee<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct TransferFees<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for TransferFees<'a> {
+impl AsRef<[u8]> for TransferFees<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -348,7 +348,7 @@ impl<'a> TransferFees<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct RecoverChainId<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for RecoverChainId<'a> {
+impl AsRef<[u8]> for RecoverChainId<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }

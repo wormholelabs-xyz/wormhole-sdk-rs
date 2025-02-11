@@ -11,7 +11,7 @@ pub struct CircleIntegrationGovPayload<'a> {
     decree: CircleIntegrationDecree<'a>,
 }
 
-impl<'a> AsRef<[u8]> for CircleIntegrationGovPayload<'a> {
+impl AsRef<[u8]> for CircleIntegrationGovPayload<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -57,7 +57,7 @@ pub enum CircleIntegrationDecree<'a> {
     ContractUpgrade(ContractUpgrade<'a>),
 }
 
-impl<'a> AsRef<[u8]> for CircleIntegrationDecree<'a> {
+impl AsRef<[u8]> for CircleIntegrationDecree<'_> {
     fn as_ref(&self) -> &[u8] {
         match self {
             Self::UpdateWormholeFinality(inner) => inner.as_ref(),
