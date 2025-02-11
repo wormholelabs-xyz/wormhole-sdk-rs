@@ -19,7 +19,7 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [workspace.dependencies]
-alloy-primitives = "0.8"
+alloy-primitives = "0.7.7"
 cfg-if = "1.0"
 hex-literal = "0.4"
 ruint = { version = "1.12", default-features = false }
