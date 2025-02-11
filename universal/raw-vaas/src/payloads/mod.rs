@@ -13,7 +13,7 @@ pub struct GovernanceMessage<'a> {
     decree: Payload<'a>,
 }
 
-impl<'a> AsRef<[u8]> for GovernanceMessage<'a> {
+impl AsRef<[u8]> for GovernanceMessage<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -73,7 +73,7 @@ impl<'a> GovernanceMessage<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct GovernanceHeader<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for GovernanceHeader<'a> {
+impl AsRef<[u8]> for GovernanceHeader<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }

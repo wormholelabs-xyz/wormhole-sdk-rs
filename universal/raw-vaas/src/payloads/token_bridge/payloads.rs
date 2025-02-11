@@ -10,7 +10,7 @@ pub struct TokenBridgePayload<'a> {
     message: TokenBridgeMessage<'a>,
 }
 
-impl<'a> AsRef<[u8]> for TokenBridgePayload<'a> {
+impl AsRef<[u8]> for TokenBridgePayload<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -137,7 +137,7 @@ impl<'a> TokenBridgeMessage<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Transfer<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for Transfer<'a> {
+impl AsRef<[u8]> for Transfer<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -181,7 +181,7 @@ impl<'a> Transfer<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Attestation<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for Attestation<'a> {
+impl AsRef<[u8]> for Attestation<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
@@ -239,7 +239,7 @@ impl<'a> Attestation<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct TransferWithMessage<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for TransferWithMessage<'a> {
+impl AsRef<[u8]> for TransferWithMessage<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }

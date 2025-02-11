@@ -8,7 +8,7 @@ pub struct WormholeCctpPayload<'a> {
     message: WormholeCctpMessage<'a>,
 }
 
-impl<'a> AsRef<[u8]> for WormholeCctpPayload<'a> {
+impl AsRef<[u8]> for WormholeCctpPayload<'_> {
     fn as_ref(&self) -> &[u8] {
         self.span
     }
@@ -102,7 +102,7 @@ impl<'a> WormholeCctpMessage<'a> {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Deposit<'a>(&'a [u8]);
 
-impl<'a> AsRef<[u8]> for Deposit<'a> {
+impl AsRef<[u8]> for Deposit<'_> {
     fn as_ref(&self) -> &[u8] {
         self.0
     }
